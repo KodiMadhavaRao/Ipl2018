@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/itemThumbnailView"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dp"
+        android:contentDescription="image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/badge_csk"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/itemDurationView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/itemThumbnailView"
+        android:layout_alignRight="@id/itemThumbnailView"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:background="#AA000000"
+        android:paddingBottom="1sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:paddingTop="1sp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#EEFFFFFF"
+        android:textSize="11sp"
+        tools:ignore="RtlHardcoded"
+        tools:text="1:09:10" />
+
+
+    <TextView
+        android:id="@+id/itemVideoTitleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/itemThumbnailView"
+        android:layout_toRightOf="@+id/itemThumbnailView"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14sp"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tristique vitae sem vitae blanditLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum" />
+
+    <TextView
+        android:id="@+id/itemUploaderView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemVideoTitleView"
+        android:layout_toEndOf="@+id/itemThumbnailView"
+        android:layout_toRightOf="@+id/itemThumbnailView"
+        android:lines="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="11sp"
+        tools:text="Uploader" />
+
+    <TextView
+        android:id="@+id/itemviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemUploaderView"
+        android:layout_toEndOf="@+id/itemThumbnailView"
+        android:layout_toRightOf="@+id/itemThumbnailView"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="11sp"
+        tools:text="views" />
+</RelativeLayout>

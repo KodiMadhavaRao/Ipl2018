@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="match" type="id" />
+    <item name="maches_list" type="id" />
+    <item name="videos_list" type="id" />
+    <item name="points_views" type="id" />
+    <item name="squads_views" type="id" />
+    <item name="squad_root" type="id" />
+</resources>

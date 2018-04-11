@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="itemSelction">#afdadada</color>
+    <color name="divider">#af646464</color>
+    <color name="lt_red">#afff7373</color>
+    <color name="team_text">#379ae0</color>
+    <color name="table_bg">#ededed</color>
+    <color name="row_one">#e8f2f4</color>
+    <color name="row_two">#f6f7f7</color>
+    <color name="white">#ffffff</color>
+</resources>
