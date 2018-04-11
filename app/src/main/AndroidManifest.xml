@@ -6,26 +6,28 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.madhav.com.ipl2018.app.IplIndia"
+        android:name=".app.IplIndia"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.madhav.com.ipl2018.view.activity.HomeActivity">
+        <activity android:name=".view.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.madhav.com.ipl2018.view.activity.MainActivity" />
-        <activity android:name="com.madhav.com.ipl2018.view.activity.VideoActivity" />
-        <activity android:name="com.madhav.com.ipl2018.view.activity.PointsTableActivity" />
+        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.VideoActivity" />
+        <activity android:name=".view.activity.PointsTableActivity" />
         <activity
-            android:name="com.madhav.com.ipl2018.view.activity.SquadsActivity"
+            android:name=".view.activity.SquadsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".view.activity.CompletedMatchActivity"></activity>
+        <activity android:name=".view.activity.CommentryActivity"></activity>
     </application>
 
 </manifest>

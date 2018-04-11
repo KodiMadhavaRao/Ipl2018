@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         linearLayout.addView(getButton(R.id.videos_list, "Videos List"));
         linearLayout.addView(getButton(R.id.points_views, "Points table"));
         linearLayout.addView(getButton(R.id.squads_views, "Squads"));
+        linearLayout.addView(getButton(R.id.completed_match_views, "Completed Matches"));
         return linearLayout;
     }
 
@@ -71,6 +72,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.squads_views:
                 openActivity(SquadsActivity.class);
+                break;
+            case R.id.completed_match_views:
+                openActivity(CompletedMatchActivity.class);
                 break;
         }
     }

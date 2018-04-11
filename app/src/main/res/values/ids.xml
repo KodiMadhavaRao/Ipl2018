@@ -6,4 +6,6 @@
     <item name="points_views" type="id" />
     <item name="squads_views" type="id" />
     <item name="squad_root" type="id" />
+    <item name="completed_match_views" type="id" />
+    <item name="commentry" type="id" />
 </resources>
