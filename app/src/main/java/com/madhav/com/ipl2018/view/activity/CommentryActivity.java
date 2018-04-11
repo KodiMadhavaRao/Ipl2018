@@ -13,14 +13,11 @@ import com.madhav.com.ipl2018.di.component.ActivityComponent;
 import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
 import com.madhav.com.ipl2018.di.module.ActivityModule;
 import com.madhav.com.ipl2018.di.qualifier.CommentryQualifier;
-import com.madhav.com.ipl2018.entity.Commentry;
 import com.madhav.com.ipl2018.net.service.CommentryService;
+
 
 import javax.inject.Inject;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
