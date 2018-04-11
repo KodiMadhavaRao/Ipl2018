@@ -29,13 +29,13 @@ public class NetModule {
 
     @Provides
     public OkHttpClient provideOKHTTPClient() {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES)
-                .writeTimeout(5, TimeUnit.MINUTES)
-                .readTimeout(5, TimeUnit.MINUTES);
 
-        okHttpClient = builder.build();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(200, TimeUnit.SECONDS)
+                .writeTimeout(200, TimeUnit.SECONDS)
+                .readTimeout(200, TimeUnit.SECONDS);
+        OkHttpClient okHttpClient= builder.build();
+
         return okHttpClient;
     }
 

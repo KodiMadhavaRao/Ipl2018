@@ -18,6 +18,8 @@ import com.madhav.com.ipl2018.net.service.CommentryService;
 
 import javax.inject.Inject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +30,7 @@ import retrofit2.Retrofit;
  * Created by madhav on 4/11/2018.
  */
 
-public class CommentryActivity extends AppCompatActivity implements Callback<Commentry> {
+public class CommentryActivity extends AppCompatActivity implements Callback<Object> {
     RecyclerView recyclerView;
     @Inject
     @CommentryQualifier
@@ -43,7 +45,7 @@ public class CommentryActivity extends AppCompatActivity implements Callback<Com
                 .build();
         activityComponent.inject(this);
         CommentryService commentryService = retrofit.create(CommentryService.class);
-        Call<Commentry> commentry = commentryService.getCommentrys();
+        Call<Object> commentry = commentryService.getCommentrys();
         commentry.enqueue(this);
     }
 
@@ -56,12 +58,12 @@ public class CommentryActivity extends AppCompatActivity implements Callback<Com
 
 
     @Override
-    public void onResponse(Call<Commentry> call, Response<Commentry> response) {
-        recyclerView.setAdapter(new CommentryAdapter(this,response.body().getCommentaries()));
+    public void onResponse(Call<Object> call, Response<Object> response) {
+        recyclerView.setAdapter(new CommentryAdapter(this,null));
     }
 
     @Override
-    public void onFailure(Call<Commentry> call, Throwable t) {
+    public void onFailure(Call<Object> call, Throwable t) {
         Toast.makeText(this, ""+t.getMessage().toString(), Toast.LENGTH_SHORT).show();
     }
 }
