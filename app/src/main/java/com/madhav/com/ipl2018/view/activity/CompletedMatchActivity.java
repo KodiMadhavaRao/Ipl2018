@@ -92,7 +92,7 @@ public class CompletedMatchActivity extends AppCompatActivity implements Complet
     @Override
     public void completedMatch(View v, int postion, int matchId) {
         Intent intent=new Intent(this,CommentryActivity.class);
-        intent.putExtra("matchId","7898");
+        intent.putExtra("matchId",""+matchId);
         startActivity(intent);
     }
 }
