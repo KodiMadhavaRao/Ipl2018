@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements MatchesAdapter.It
     @Inject
     @ActivityContext
     Context context;
+
     MatchesAdapter matchesAdapter;
     String teamcolors[] = {"#AFFFFFFF", "#FDB913", "#004C93", "#DA1F3D", "#6F2C91", "#00AEEF", "#004B8C", "#FF3245", "#FF9C00"};
     List<MatchFlags> matchFlags;

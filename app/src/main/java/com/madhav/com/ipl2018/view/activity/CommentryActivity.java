@@ -33,6 +33,7 @@ public class CommentryActivity extends AppCompatActivity implements SwipeRefresh
     @Inject
     @CommentryQualifier
     Retrofit retrofit;
+
     private TextView matchName;
     private TextView matchCount;
     private RecyclerView recyclerView;

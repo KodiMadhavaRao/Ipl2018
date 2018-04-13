@@ -16,6 +16,7 @@ import com.madhav.com.ipl2018.di.qualifier.ApplicationContext;
 
 public class IplIndia extends Application {
     AppComponent appComponent;
+
     @Inject
     @ApplicationContext
     Context context;
@@ -23,7 +24,9 @@ public class IplIndia extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
         appComponent.inject(this);
 //        TypefaceUtil.overrideFont(getApplicationContext(), "CaviarDreams", "fonts/CreditValley.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
     }

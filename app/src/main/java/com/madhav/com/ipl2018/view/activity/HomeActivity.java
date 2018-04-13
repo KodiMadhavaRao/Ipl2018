@@ -31,7 +31,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getButtonsView());
-        ActivityComponent activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this))
+        ActivityComponent activityComponent =
+                DaggerActivityComponent.builder()
+                        .activityModule(new ActivityModule(this))
                 .build();
         activityComponent.inject(this);
 

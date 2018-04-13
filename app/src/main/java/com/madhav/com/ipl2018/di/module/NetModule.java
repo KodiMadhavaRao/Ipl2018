@@ -53,7 +53,6 @@ public class NetModule {
     @VideoClient
     public Map<String,String> provideOKHTTPHeaders() {
 
-
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json;pk=BCpkADawqM2gJr3ZcIhQ11I_StukGg3_84VrOyxRZLlZv6syus2x7Re2-xuSc1ITG3JcVHCKhGJ9Yq84PdJJT48S9i3mq-eUQN8HjoxxiIlkpnuBMlxHgAnqGf0BmpsuGOJDBuMIjuXItNfuPTsfj8x5L_J6bQ2ox5KvD4u9vbxfvUpWPNxwlPZACN7z7W2CYounaxo6evVMeUrd");
         headers.put("Accept-Encoding", "application/gzip,deflate,br");
