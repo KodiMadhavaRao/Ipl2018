@@ -21,11 +21,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
 
     private final VideoActivity videoActivity;
     private final VideoThumb videoThumb;
+    private VideoListener onItemClickListener;
 
     public VideoAdapter(VideoActivity videoActivity, VideoThumb videoThumb) {
         this.videoActivity = videoActivity;
         this.videoThumb = videoThumb;
+//        5768519245001
+//        5768474695001     5768474695001
     }
+
 
     @Override
     public VideoAdapter.VideoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,6 +60,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         String ss = (s == 0 && (h > 0 || m > 0) ? "" : (s < 10 && (h > 0 || m > 0) ? "0" : "") + String.valueOf(s) + " " + "sec");
         return sh + (h > 0 ? " " : "") + sm + (m > 0 ? " " : "") + ss;
     }
+    public void setOnItemClickListener(VideoListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public class VideoHolder extends RecyclerView.ViewHolder {
 
@@ -67,11 +74,20 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
 
         public VideoHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onVideoItemClickListener(v,getAdapterPosition(),videoThumb.getContent().get(getAdapterPosition()).getMediaId());
+                }
+            });
             thumb = (ImageView) itemView.findViewById(R.id.itemThumbnailView);
             duration = (TextView) itemView.findViewById(R.id.itemDurationView);
             title = (TextView) itemView.findViewById(R.id.itemVideoTitleView);
             details = (TextView) itemView.findViewById(R.id.itemUploaderView);
             noOfViews = (TextView) itemView.findViewById(R.id.itemviews);
         }
+    }
+    public interface VideoListener {
+        public void onVideoItemClickListener(View view, int iPosition, String iVideoId);
     }
 }

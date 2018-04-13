@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.madhav.com.ipl2018.R;
+import com.madhav.com.ipl2018.entity.CompletedMatchStatus;
 import com.madhav.com.ipl2018.entity.Matches;
 import com.madhav.com.ipl2018.entity.model.MatchFlags;
 import com.madhav.com.ipl2018.view.activity.CompletedMatchActivity;
@@ -23,11 +24,14 @@ import java.util.List;
 public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatchesAdapter.CompletedHolder> {
     private final CompletedMatchActivity completedMatchActivity;
     private final List<MatchFlags> matchFlags;
+    private List<CompletedMatchStatus> summarys;
+
     private CompleteMatchClickListener completeMatchClickListener;
 
-    public CompletedMatchesAdapter(CompletedMatchActivity completedMatchActivity, List<MatchFlags> matchFlags) {
+    public CompletedMatchesAdapter(CompletedMatchActivity completedMatchActivity, List<MatchFlags> matchFlags, List<CompletedMatchStatus> summarys) {
         this.completedMatchActivity = completedMatchActivity;
         this.matchFlags = matchFlags;
+        this.summarys = summarys;
     }
 
     @Override
@@ -48,7 +52,7 @@ public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatch
         holder.teamOne.setText((scheduleBeans.getTeam1().getTeam().getFullName()));
         holder.teamTwo.setText((scheduleBeans.getTeam2().getTeam().getFullName()));
         holder.venue.setText(scheduleBeans.getVenue().getFullName());
-        holder.result.setText("CSK Won by 31 runs");
+        holder.result.setText(summarys.get(position).getStatus());
     }
     private void setTeamImages(String teamOne, ImageView teamOneImage) {
         int drawableRes = 0;

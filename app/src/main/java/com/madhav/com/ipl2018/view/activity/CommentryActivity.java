@@ -114,7 +114,7 @@ public class CommentryActivity extends AppCompatActivity implements SwipeRefresh
                     mSwipeRefreshLayout.setRefreshing(false);
                 } else {
                     mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(CommentryActivity.this, "Match is Completed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentryActivity.this, "OOps", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -8,5 +8,6 @@ public class BaseConstants {
     public static final String BASE_API_URL = "http://api.platform.iplt20.com/";
     public static final String BASE_CDN_URL = "http://datacdn.iplt20.com/";
     public static final String BASE_COMMENTRY_URL = "https://cricketapi.platform.iplt20.com/";
+    public static final String BASE_VIDEO_URL ="https://edge.api.brightcove.com/";
 }
 

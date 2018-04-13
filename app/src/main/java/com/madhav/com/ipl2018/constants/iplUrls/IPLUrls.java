@@ -30,6 +30,7 @@ public class IPLUrls {
 //CarrerStatus    http://datacdn.iplt20.com/dynamic/data/core/cricket/careerStats/1_careerStats.js
 //CommentryQualifier    https://cricketapi.platform.iplt20.com//fixtures/7898/commentary/feeds/1?customer=bcci
 //Match images https://api.platform.iplt20.com/content/ipl/photo/EN/?references=CRICKET_MATCH:7898&tags=gallery-photo&pageSize=150
+//Match Summary    https://cricketapi.platform.iplt20.com//fixtures/7899/scoring
 
 }
 
