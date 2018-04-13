@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -16,7 +15,6 @@ import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
 import com.madhav.com.ipl2018.di.module.ActivityModule;
 import com.madhav.com.ipl2018.di.qualifier.ApiPlatform;
 import com.madhav.com.ipl2018.entity.ImagesOfMatch;
-import com.madhav.com.ipl2018.entity.VideoThumb;
 import com.madhav.com.ipl2018.net.service.ApiService;
 import com.madhav.com.ipl2018.view.adapter.ImagesAdapter;
 
@@ -32,11 +30,11 @@ import retrofit2.Retrofit;
  */
 
 public class ImagesActivity extends AppCompatActivity implements Callback<ImagesOfMatch> {
-    private RecyclerView recyclerView;
-    private FrameLayout frame;
     @Inject
     @ApiPlatform
     Retrofit retrofit;
+    private RecyclerView recyclerView;
+    private FrameLayout frame;
     private String matchId;
 
     //    https://api.platform.iplt20.com/content/ipl/photo/EN/?references=CRICKET_MATCH:7898&tags=gallery-photo&pageSize=150
@@ -53,7 +51,7 @@ public class ImagesActivity extends AppCompatActivity implements Callback<Images
         Intent intent = getIntent();
         matchId = intent.getStringExtra("matchId");
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<ImagesOfMatch> images = apiService.getImages("CRICKET_MATCH:"+matchId);
+        Call<ImagesOfMatch> images = apiService.getImages("CRICKET_MATCH:" + matchId);
         images.enqueue(this);
 
     }
@@ -61,7 +59,7 @@ public class ImagesActivity extends AppCompatActivity implements Callback<Images
     @Override
     public void onResponse(Call<ImagesOfMatch> call, Response<ImagesOfMatch> response) {
         frame.setVisibility(View.GONE);
-        recyclerView.setAdapter(new ImagesAdapter(this,response.body()));
+        recyclerView.setAdapter(new ImagesAdapter(this, response.body()));
     }
 
     @Override

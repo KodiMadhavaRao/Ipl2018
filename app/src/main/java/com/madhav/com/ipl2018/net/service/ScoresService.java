@@ -1,6 +1,5 @@
 package com.madhav.com.ipl2018.net.service;
 
-import com.madhav.com.ipl2018.entity.Commentry;
 import com.madhav.com.ipl2018.entity.Scoring;
 
 import retrofit2.Call;

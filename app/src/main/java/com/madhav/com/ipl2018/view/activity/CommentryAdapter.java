@@ -1,13 +1,11 @@
 package com.madhav.com.ipl2018.view.activity;
 
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,7 +13,6 @@ import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.entity.Commentry;
 
 import java.text.DecimalFormat;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,9 +33,11 @@ class CommentryAdapter extends RecyclerView.Adapter<CommentryAdapter.CommentryHo
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.commentry, parent, false);
         return new CommentryHolder(itemView);
     }
-    public void setData(List<Commentry.Commentaries> data){
+
+    public void setData(List<Commentry.Commentaries> data) {
         this.mcommentaries.addAll(data);
     }
+
     @Override
     public void onBindViewHolder(CommentryHolder holder, int position) {
         Commentry.Commentaries commentaries = mcommentaries.get(position);
@@ -47,13 +46,13 @@ class CommentryAdapter extends RecyclerView.Adapter<CommentryAdapter.CommentryHo
                 holder.time.setText(commentaries.getTime());
                 String bbcode = commentaries.getBbcode();
                 if (commentaries.getSpeed() > 0.0) {
-                    holder.message.setText(bbcode.replace("%SPEED%", "Speed :"+String.valueOf(  new DecimalFormat("#.##").format(commentaries.getSpeed() * 3.6))));
-                    if (commentaries.getBowlerId()!=null){
+                    holder.message.setText(bbcode.replace("%SPEED%", "Speed :" + String.valueOf(new DecimalFormat("#.##").format(commentaries.getSpeed() * 3.6))));
+                    if (commentaries.getBowlerId() != null) {
                         holder.pitch.setVisibility(View.VISIBLE);
                         image(holder.bowler, Integer.parseInt(commentaries.getBowlerId()));
                         image(holder.striker, Integer.parseInt(commentaries.getFacingBatsmanId()));
                         image(holder.nonStriker, Integer.parseInt(commentaries.getNonfacingBatsmanId()));
-                    }else {
+                    } else {
                         holder.pitch.setVisibility(View.GONE);
                     }
                 } else {

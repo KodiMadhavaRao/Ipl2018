@@ -2,7 +2,6 @@ package com.madhav.com.ipl2018.view.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,12 +22,6 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.madhav.com.ipl2018.R;
-import com.madhav.com.ipl2018.entity.VideoUrls;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 /**
@@ -47,6 +40,14 @@ public class VideoPlayerFragment extends Fragment {
 
     public VideoPlayerFragment() {
         // Required empty public constructor
+    }
+
+    public static VideoPlayerFragment newInstance(String videoUrl) {
+        VideoPlayerFragment videoPlayerFragment = new VideoPlayerFragment();
+        Bundle args = new Bundle();
+        args.putString("videoUrl", videoUrl);
+        videoPlayerFragment.setArguments(args);
+        return videoPlayerFragment;
     }
 
     @Override
@@ -68,9 +69,8 @@ public class VideoPlayerFragment extends Fragment {
         return view;
     }
 
-
     private void initializePlayer(String url) {
-        if ((!url.equals("")) && (url.contains("http://")||url.contains("https://"))) {
+        if ((!url.equals("")) && (url.contains("http://") || url.contains("https://"))) {
             player = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(getActivity()),
                     new DefaultTrackSelector(), new DefaultLoadControl());
@@ -143,14 +143,6 @@ public class VideoPlayerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d("onDestroy", "onDestroy");
-    }
-
-    public static  VideoPlayerFragment newInstance(String videoUrl) {
-        VideoPlayerFragment videoPlayerFragment = new VideoPlayerFragment();
-        Bundle args = new Bundle();
-        args.putString("videoUrl", videoUrl);
-        videoPlayerFragment.setArguments(args);
-        return videoPlayerFragment;
     }
 }
 

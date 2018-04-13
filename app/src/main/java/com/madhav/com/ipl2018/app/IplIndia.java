@@ -3,12 +3,12 @@ package com.madhav.com.ipl2018.app;
 import android.app.Application;
 import android.content.Context;
 
-import javax.inject.Inject;
-
 import com.madhav.com.ipl2018.di.component.AppComponent;
 import com.madhav.com.ipl2018.di.component.DaggerAppComponent;
 import com.madhav.com.ipl2018.di.module.AppModule;
 import com.madhav.com.ipl2018.di.qualifier.ApplicationContext;
+
+import javax.inject.Inject;
 
 /**
  * Created by madhav on 4/6/2018.

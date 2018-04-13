@@ -1,6 +1,5 @@
 package com.madhav.com.ipl2018.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,11 +40,11 @@ import retrofit2.Retrofit;
 
 public class CompletedMatchActivity extends AppCompatActivity implements CompletedMatchesAdapter.CompleteMatchClickListener, Callback<Scoring> {
 
-    private List<MatchFlags> matchFlags;
     @Inject
     @CommentryQualifier
     Retrofit retrofit;
     List<CompletedMatchStatus> summarys;
+    private List<MatchFlags> matchFlags;
     private RecyclerView recyclerView;
 
     @Override
@@ -53,7 +52,7 @@ public class CompletedMatchActivity extends AppCompatActivity implements Complet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed_match);
         recyclerView = (RecyclerView) findViewById(R.id.completed_matches_id);
-        summarys=new ArrayList<>();
+        summarys = new ArrayList<>();
         ActivityComponent activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this))
                 .build();
         activityComponent.inject(this);
@@ -62,7 +61,7 @@ public class CompletedMatchActivity extends AppCompatActivity implements Complet
         matchFlags = filterByCurrentDate(matches.getSchedule());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ScoresService scoresService = retrofit.create(ScoresService.class);
-        for (int i=0;i<matchFlags.size();i++){
+        for (int i = 0; i < matchFlags.size(); i++) {
             Call<Scoring> scoring = scoresService.getScoring(matchFlags.get(i).getScheduleBeans().getMatchId().getId());
             scoring.enqueue(this);
         }
@@ -123,8 +122,8 @@ public class CompletedMatchActivity extends AppCompatActivity implements Complet
 
     @Override
     public void completedMatch(View v, int postion, int matchId) {
-        ImageCommentrySelectionDialog imageCommentrySelectionDialog=ImageCommentrySelectionDialog.newInstance(matchId);
-        imageCommentrySelectionDialog.show(getFragmentManager(),"ImageCommentry");
+        ImageCommentrySelectionDialog imageCommentrySelectionDialog = ImageCommentrySelectionDialog.newInstance(matchId);
+        imageCommentrySelectionDialog.show(getFragmentManager(), "ImageCommentry");
         /*Intent intent = new Intent(this, CommentryActivity.class);
         intent.putExtra("matchId", "" + matchId);
         startActivity(intent);*/
@@ -132,22 +131,22 @@ public class CompletedMatchActivity extends AppCompatActivity implements Complet
 
     @Override
     public void onResponse(Call<Scoring> call, Response<Scoring> response) {
-        if (response.body().getMatchInfo().getMatchStatus()!=null) {
+        if (response.body().getMatchInfo().getMatchStatus() != null) {
             if (response.body().getMatchInfo().getMatchStatus().getText() != null) {
-                summarys.add(new CompletedMatchStatus(String.valueOf(response.body().getMatchId().getId()),response.body().getMatchInfo().getMatchStatus().getText()));
+                summarys.add(new CompletedMatchStatus(String.valueOf(response.body().getMatchId().getId()), response.body().getMatchInfo().getMatchStatus().getText()));
             }
-        }else {
-            summarys.add(new CompletedMatchStatus(String.valueOf(response.body().getMatchId().getId()),response.body().getMatchInfo().getMatchSummary()));
+        } else {
+            summarys.add(new CompletedMatchStatus(String.valueOf(response.body().getMatchId().getId()), response.body().getMatchInfo().getMatchSummary()));
         }
 
-        if (matchFlags.size()==summarys.size()){
+        if (matchFlags.size() == summarys.size()) {
             Collections.sort(summarys, new Comparator<CompletedMatchStatus>() {
                 @Override
                 public int compare(CompletedMatchStatus o1, CompletedMatchStatus o2) {
                     return o1.getMatchId().compareTo(o2.getMatchId());
                 }
             });
-            CompletedMatchesAdapter completedMatchesAdapter = new CompletedMatchesAdapter(this, matchFlags,summarys);
+            CompletedMatchesAdapter completedMatchesAdapter = new CompletedMatchesAdapter(this, matchFlags, summarys);
             completedMatchesAdapter.setOnItemClickListener(this);
             recyclerView.setAdapter(completedMatchesAdapter);
         }

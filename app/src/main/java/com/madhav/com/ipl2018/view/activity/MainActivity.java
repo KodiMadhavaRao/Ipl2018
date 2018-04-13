@@ -16,6 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.madhav.com.ipl2018.R;
+import com.madhav.com.ipl2018.di.component.ActivityComponent;
+import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
+import com.madhav.com.ipl2018.di.module.ActivityModule;
+import com.madhav.com.ipl2018.di.qualifier.ActivityContext;
+import com.madhav.com.ipl2018.entity.Matches;
+import com.madhav.com.ipl2018.entity.model.MatchFlags;
+import com.madhav.com.ipl2018.view.adapter.MatchesAdapter;
+import com.madhav.com.ipl2018.view.dialog.TeamSelectionDialog;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,16 +36,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import com.madhav.com.ipl2018.R;
-import com.madhav.com.ipl2018.di.component.ActivityComponent;
-import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
-import com.madhav.com.ipl2018.di.module.ActivityModule;
-import com.madhav.com.ipl2018.di.qualifier.ActivityContext;
-import com.madhav.com.ipl2018.entity.Matches;
-import com.madhav.com.ipl2018.entity.model.MatchFlags;
-import com.madhav.com.ipl2018.view.adapter.MatchesAdapter;
-import com.madhav.com.ipl2018.view.dialog.TeamSelectionDialog;
 
 
 public class MainActivity extends AppCompatActivity implements MatchesAdapter.ItemClickListener, View.OnClickListener, TeamSelectionDialog.OnItemSelection {

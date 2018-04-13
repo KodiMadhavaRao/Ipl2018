@@ -2,8 +2,6 @@ package com.madhav.com.ipl2018.di.component;
 
 import android.content.Context;
 
-import javax.inject.Singleton;
-
 import com.madhav.com.ipl2018.di.module.ActivityModule;
 import com.madhav.com.ipl2018.di.module.NetModule;
 import com.madhav.com.ipl2018.di.qualifier.ActivityContext;
@@ -15,6 +13,9 @@ import com.madhav.com.ipl2018.view.activity.MainActivity;
 import com.madhav.com.ipl2018.view.activity.PointsTableActivity;
 import com.madhav.com.ipl2018.view.activity.SquadsActivity;
 import com.madhav.com.ipl2018.view.activity.VideoActivity;
+
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
@@ -35,8 +36,11 @@ public interface ActivityComponent {
     void inject(VideoActivity videoActivity);
 
     void inject(PointsTableActivity pointsTableActivity);
+
     void inject(CommentryActivity commentryActivity);
+
     void inject(CompletedMatchActivity completedMatchActivity);
+
     void inject(ImagesActivity imagesActivity);
 
 

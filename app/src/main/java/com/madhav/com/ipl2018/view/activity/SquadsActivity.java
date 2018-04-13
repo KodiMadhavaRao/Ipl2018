@@ -16,11 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
-
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.di.component.ActivityComponent;
 import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
@@ -31,6 +26,11 @@ import com.madhav.com.ipl2018.net.service.CdnService;
 import com.madhav.com.ipl2018.util.StringResponse;
 import com.madhav.com.ipl2018.view.adapter.SquadAdapter;
 import com.madhav.com.ipl2018.view.fragment.PlayersFragment;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

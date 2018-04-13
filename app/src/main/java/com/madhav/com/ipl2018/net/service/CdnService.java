@@ -1,6 +1,7 @@
 package com.madhav.com.ipl2018.net.service;
 
 import com.madhav.com.ipl2018.constants.iplUrls.IPLUrls;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

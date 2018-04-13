@@ -9,11 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import java.util.List;
-
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.entity.Squad;
+
+import java.util.List;
 
 /**
  * Created by madhav on 4/10/2018.

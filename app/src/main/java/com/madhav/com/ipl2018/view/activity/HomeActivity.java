@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import javax.inject.Inject;
-
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.di.component.ActivityComponent;
 import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
 import com.madhav.com.ipl2018.di.module.ActivityModule;
 import com.madhav.com.ipl2018.di.qualifier.ActivityContext;
+
+import javax.inject.Inject;
 
 /**
  * Created by madhav on 4/9/2018.
@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         ActivityComponent activityComponent =
                 DaggerActivityComponent.builder()
                         .activityModule(new ActivityModule(this))
-                .build();
+                        .build();
         activityComponent.inject(this);
 
     }

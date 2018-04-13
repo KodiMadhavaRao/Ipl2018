@@ -510,8 +510,8 @@ public class Commentry {
              * id : 983619700230770689
              * id_str : 983619700230770689
              * text : VIDEO: @msdhoni's calm oozes Stringo #CSK - Michael Hussey tells @RajalArora
-
-             He has made the transition from a playe… https://t.co/hJJiG59ocd
+             * <p>
+             * He has made the transition from a playe… https://t.co/hJJiG59ocd
              * truncated : true
              * entities : {"hashtags":[{"text":"CSK","indices":[34,38]}],"symbols":[],"user_mentions":[{"screen_name":"msdhoni","name":"Mahendra Singh Dhoni","id":92708272,"id_str":"92708272","indices":[7,15]},{"screen_name":"RajalArora","name":"Rajal Arora","id":297286228,"id_str":"297286228","indices":[62,73]}],"urls":[{"url":"https://t.co/hJJiG59ocd","expanded_url":"https://twitter.com/i/web/status/983619700230770689","display_url":"twitter.com/i/web/status/9\u2026","indices":[117,140]}]}
              * source : <a href="http://twitter.com" rel="nofollow">Twitter Web Client</a>

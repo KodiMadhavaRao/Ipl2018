@@ -18,11 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.di.component.ActivityComponent;
 import com.madhav.com.ipl2018.di.component.DaggerActivityComponent;
@@ -31,6 +26,11 @@ import com.madhav.com.ipl2018.di.qualifier.Datacdn;
 import com.madhav.com.ipl2018.entity.PointsTable;
 import com.madhav.com.ipl2018.net.service.CdnService;
 import com.madhav.com.ipl2018.util.StringResponse;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

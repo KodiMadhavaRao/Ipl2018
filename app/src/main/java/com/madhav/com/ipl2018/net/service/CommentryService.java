@@ -12,7 +12,8 @@ import retrofit2.http.Path;
 
 public interface CommentryService {
     @GET("/fixtures/{match_id}/commentary/feeds/{page}?customer=bcci")
-    public Call<Commentry> getCommentry(@Path(value = "match_id", encoded = true) String matchId,@Path(value = "page", encoded = true) int page);
+    public Call<Commentry> getCommentry(@Path(value = "match_id", encoded = true) String matchId, @Path(value = "page", encoded = true) int page);
+
     @GET("/fixtures/7899/commentary/feeds/1?customer=bcci")
     public Call<Object> getCommentrys();
 }

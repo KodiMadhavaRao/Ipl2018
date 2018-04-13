@@ -23,6 +23,14 @@ import com.madhav.com.ipl2018.view.activity.ImagesActivity;
 public class ImageCommentrySelectionDialog extends DialogFragment implements View.OnClickListener {
     private String matchId;
 
+    public static ImageCommentrySelectionDialog newInstance(int matchId) {
+        ImageCommentrySelectionDialog imageCommentrySelectionDialog = new ImageCommentrySelectionDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("matchId", "" + matchId);
+        imageCommentrySelectionDialog.setArguments(bundle);
+        return imageCommentrySelectionDialog;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +41,11 @@ public class ImageCommentrySelectionDialog extends DialogFragment implements Vie
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Activity activity = getActivity();
-        LinearLayout linearLayout=new LinearLayout(activity);
+        LinearLayout linearLayout = new LinearLayout(activity);
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.addView(getTxtView(R.id.commentry_selection,"Commentry"));
-        linearLayout.addView(getTxtView(R.id.images_selection,"Images"));
+        linearLayout.addView(getTxtView(R.id.commentry_selection, "Commentry"));
+        linearLayout.addView(getTxtView(R.id.images_selection, "Images"));
         return linearLayout;
     }
 
@@ -52,8 +60,8 @@ public class ImageCommentrySelectionDialog extends DialogFragment implements Vie
     }
 
     public TextView getTxtView(int id, String commentry) {
-        TextView textView=new TextView(getActivity());
-        textView.setPadding(10,10,10,10);
+        TextView textView = new TextView(getActivity());
+        textView.setPadding(10, 10, 10, 10);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setText(commentry);
         textView.setId(id);
@@ -63,7 +71,7 @@ public class ImageCommentrySelectionDialog extends DialogFragment implements Vie
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.commentry_selection:
                 openActivity(CommentryActivity.class);
                 break;
@@ -78,13 +86,5 @@ public class ImageCommentrySelectionDialog extends DialogFragment implements Vie
         Intent intent = new Intent(getActivity(), aClass);
         intent.putExtra("matchId", "" + matchId);
         startActivity(intent);
-    }
-
-    public static ImageCommentrySelectionDialog newInstance(int matchId) {
-        ImageCommentrySelectionDialog imageCommentrySelectionDialog=new ImageCommentrySelectionDialog();
-        Bundle bundle=new Bundle();
-        bundle.putString("matchId",""+matchId);
-        imageCommentrySelectionDialog.setArguments(bundle);
-        return imageCommentrySelectionDialog;
     }
 }

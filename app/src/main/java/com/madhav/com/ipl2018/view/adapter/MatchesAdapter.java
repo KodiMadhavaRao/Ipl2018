@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.entity.Matches;
 import com.madhav.com.ipl2018.entity.model.MatchFlags;
+
+import java.util.List;
 
 /**
  * Created by madhav on 4/6/2018.

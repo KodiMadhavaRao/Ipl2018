@@ -46,14 +46,15 @@ public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatch
             holder.itemView.setBackgroundDrawable(getStrokeDrawable());
         }
         Matches.ScheduleBean scheduleBeans = matchFlags.get(position).getScheduleBeans();
-        setTeamImages(scheduleBeans.getTeam1().getTeam().getFullName(),holder.teamOneImage);
-        setTeamImages(scheduleBeans.getTeam2().getTeam().getFullName(),holder.teamTwoImage);
+        setTeamImages(scheduleBeans.getTeam1().getTeam().getFullName(), holder.teamOneImage);
+        setTeamImages(scheduleBeans.getTeam2().getTeam().getFullName(), holder.teamTwoImage);
         holder.matchNo.setText(scheduleBeans.getDescription());
         holder.teamOne.setText((scheduleBeans.getTeam1().getTeam().getFullName()));
         holder.teamTwo.setText((scheduleBeans.getTeam2().getTeam().getFullName()));
         holder.venue.setText(scheduleBeans.getVenue().getFullName());
         holder.result.setText(summarys.get(position).getStatus());
     }
+
     private void setTeamImages(String teamOne, ImageView teamOneImage) {
         int drawableRes = 0;
         switch (teamOne) {
@@ -84,10 +85,12 @@ public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatch
         }
         teamOneImage.setImageResource(drawableRes);
     }
+
     @Override
     public int getItemCount() {
         return matchFlags.size();
     }
+
     public GradientDrawable getStrokeDrawable() {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setColor(Color.WHITE);
@@ -99,6 +102,10 @@ public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatch
     public void setOnItemClickListener(CompleteMatchClickListener completeMatchClickListener) {
 
         this.completeMatchClickListener = completeMatchClickListener;
+    }
+
+    public interface CompleteMatchClickListener {
+        public void completedMatch(View v, int postion, int matchId);
     }
 
     public class CompletedHolder extends RecyclerView.ViewHolder {
@@ -116,7 +123,7 @@ public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatch
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    completeMatchClickListener.completedMatch(view,getAdapterPosition(),matchFlags.get(getAdapterPosition()).getScheduleBeans().getMatchId().getId());
+                    completeMatchClickListener.completedMatch(view, getAdapterPosition(), matchFlags.get(getAdapterPosition()).getScheduleBeans().getMatchId().getId());
                 }
             });
             teamOneImage = (ImageView) itemView.findViewById(R.id.com_teamone_image);
@@ -127,8 +134,5 @@ public class CompletedMatchesAdapter extends RecyclerView.Adapter<CompletedMatch
             venue = (TextView) itemView.findViewById(R.id.com_venue);
             result = (TextView) itemView.findViewById(R.id.com_result);
         }
-    }
-    public interface CompleteMatchClickListener{
-        public void completedMatch(View v,int postion,int matchId);
     }
 }

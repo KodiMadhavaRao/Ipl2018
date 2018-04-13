@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.entity.VideoThumb;
 import com.madhav.com.ipl2018.view.activity.VideoActivity;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by madhav on 4/9/2018.
@@ -60,8 +59,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         String ss = (s == 0 && (h > 0 || m > 0) ? "" : (s < 10 && (h > 0 || m > 0) ? "0" : "") + String.valueOf(s) + " " + "sec");
         return sh + (h > 0 ? " " : "") + sm + (m > 0 ? " " : "") + ss;
     }
+
     public void setOnItemClickListener(VideoListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface VideoListener {
+        public void onVideoItemClickListener(View view, int iPosition, String iVideoId);
     }
 
     public class VideoHolder extends RecyclerView.ViewHolder {
@@ -77,7 +81,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onVideoItemClickListener(v,getAdapterPosition(),videoThumb.getContent().get(getAdapterPosition()).getMediaId());
+                    onItemClickListener.onVideoItemClickListener(v, getAdapterPosition(), videoThumb.getContent().get(getAdapterPosition()).getMediaId());
                 }
             });
             thumb = (ImageView) itemView.findViewById(R.id.itemThumbnailView);
@@ -86,8 +90,5 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
             details = (TextView) itemView.findViewById(R.id.itemUploaderView);
             noOfViews = (TextView) itemView.findViewById(R.id.itemviews);
         }
-    }
-    public interface VideoListener {
-        public void onVideoItemClickListener(View view, int iPosition, String iVideoId);
     }
 }
