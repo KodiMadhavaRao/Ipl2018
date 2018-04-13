@@ -8,4 +8,6 @@
     <item name="squad_root" type="id" />
     <item name="completed_match_views" type="id" />
     <item name="commentry" type="id" />
+    <item name="commentry_selection" type="id" />
+    <item name="images_selection" type="id" />
 </resources>

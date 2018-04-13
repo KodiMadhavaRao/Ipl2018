@@ -28,6 +28,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".view.activity.CompletedMatchActivity"></activity>
         <activity android:name=".view.activity.CommentryActivity"></activity>
+        <activity android:name=".view.activity.ImagesActivity"></activity>
     </application>
 
 </manifest>

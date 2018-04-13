@@ -19,6 +19,7 @@ import com.madhav.com.ipl2018.entity.Scoring;
 import com.madhav.com.ipl2018.entity.model.MatchFlags;
 import com.madhav.com.ipl2018.net.service.ScoresService;
 import com.madhav.com.ipl2018.view.adapter.CompletedMatchesAdapter;
+import com.madhav.com.ipl2018.view.dialog.ImageCommentrySelectionDialog;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -122,9 +123,11 @@ public class CompletedMatchActivity extends AppCompatActivity implements Complet
 
     @Override
     public void completedMatch(View v, int postion, int matchId) {
-        Intent intent = new Intent(this, CommentryActivity.class);
+        ImageCommentrySelectionDialog imageCommentrySelectionDialog=ImageCommentrySelectionDialog.newInstance(matchId);
+        imageCommentrySelectionDialog.show(getFragmentManager(),"ImageCommentry");
+        /*Intent intent = new Intent(this, CommentryActivity.class);
         intent.putExtra("matchId", "" + matchId);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     @Override
