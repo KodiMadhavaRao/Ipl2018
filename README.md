@@ -25,6 +25,10 @@ Screenshots
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523445657.png">
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523445652.png">
 
+
+
+
+
 Future Roadmap:
 ---------------
 * Clean UI
