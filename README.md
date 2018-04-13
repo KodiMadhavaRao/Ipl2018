@@ -31,7 +31,8 @@ Screenshots
 
 Future Roadmap:
 ---------------
-* Clean UI
+* Material Design
 * MVP architechture
 * Notification
+* Player Carrer stats (Charts)
 
