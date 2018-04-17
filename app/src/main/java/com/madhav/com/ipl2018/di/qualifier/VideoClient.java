@@ -9,6 +9,6 @@ import javax.inject.Qualifier;
  * Created by madhav on 4/12/2018.
  */
 @Qualifier
-@Retention(RetentionPolicy.RUNTIMEs)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface VideoClient {
 }
