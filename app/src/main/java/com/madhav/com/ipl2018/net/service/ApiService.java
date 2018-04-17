@@ -12,8 +12,8 @@ import retrofit2.http.Query;
  */
 
 public interface ApiService {
-    @GET("/content/ipl/VIDEO/en?page=0&pageSize=15&tagNames=indian-premier-league&detail=DETAILED")
-    public Call<VideoThumb> getVideoThumb();
+    @GET("/content/ipl/VIDEO/en?pageSize=15&tagNames=indian-premier-league&detail=DETAILED")
+    public Call<VideoThumb> getVideoThumb(@Query("page") int pageNo);
 
     @GET("/content/ipl/photo/EN/?tags=gallery-photo&pageSize=150")
     public Call<ImagesOfMatch> getImages(@Query("references") String pid);

@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity implements MatchesAdapter.It
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_schedule);
-        ActivityComponent activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this))
-                .build();
+        ActivityComponent activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();
         activityComponent.inject(this);
         Button filterTeam = (Button) findViewById(R.id.filter_by_team);
         filterTeam.setOnClickListener(this);

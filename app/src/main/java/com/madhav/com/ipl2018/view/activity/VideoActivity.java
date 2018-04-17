@@ -56,6 +56,9 @@ public class VideoActivity extends AppCompatActivity implements Callback<VideoTh
     @Inject
     @VideoClient
     Map<String, String> headers;
+    int pageN0=0;
+    private RecyclerView recyclerView;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,8 +71,8 @@ public class VideoActivity extends AppCompatActivity implements Callback<VideoTh
         frameLayout.setVisibility(View.VISIBLE);
         ActivityComponent activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();
         activityComponent.inject(this);
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<VideoThumb> videoThumb = apiService.getVideoThumb();
+        apiService = retrofit.create(ApiService.class);
+        Call<VideoThumb> videoThumb = apiService.getVideoThumb(pageN0);
         videoThumb.enqueue(this);
     }
 
@@ -81,7 +84,30 @@ public class VideoActivity extends AppCompatActivity implements Callback<VideoTh
         frameLayout.setAnimation(outAnimation);
         frameLayout.setVisibility(View.GONE);
         VideoThumb videoThumb = response.body();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.videos_list);
+        recyclerView = (RecyclerView) findViewById(R.id.videos_list);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(final RecyclerView recyclerView, int dx, int dy) {
+                if (!recyclerView.canScrollVertically(1)){
+                    pageN0=pageN0+1;
+                    Call<VideoThumb> videoThumb = apiService.getVideoThumb(pageN0);
+                    videoThumb.enqueue(new Callback<VideoThumb>() {
+                        @Override
+                        public void onResponse(Call<VideoThumb> call, Response<VideoThumb> response) {
+                            VideoAdapter adapter = (VideoAdapter) recyclerView.getAdapter();
+                            adapter.setData(response.body());
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onFailure(Call<VideoThumb> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         VideoAdapter videoAdapter = new VideoAdapter(this, videoThumb);
         videoAdapter.setOnItemClickListener(this);

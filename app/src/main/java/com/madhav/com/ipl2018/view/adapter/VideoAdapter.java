@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.madhav.com.ipl2018.R;
 import com.madhav.com.ipl2018.entity.VideoThumb;
 import com.madhav.com.ipl2018.view.activity.VideoActivity;
@@ -38,7 +39,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
 
     @Override
     public void onBindViewHolder(VideoAdapter.VideoHolder holder, int position) {
-        Picasso.get().load(videoThumb.getContent().get(position).getThumbnail().getVariants().get(10).getUrl()).into(holder.thumb);
+        Glide.with(videoActivity)
+                .load(videoThumb.getContent().get(position).getThumbnail().getVariants().get(1).getUrl())
+                .into(holder.thumb);
         holder.duration.setText(convertSeconds(videoThumb.getContent().get(position).getDuration()));
         holder.title.setText(videoThumb.getContent().get(position).getTitle());
         holder.details.setText("" + videoThumb.getContent().get(position).getDate());
@@ -62,6 +65,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
 
     public void setOnItemClickListener(VideoListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setData(VideoThumb data) {
+        this.videoThumb.getContent().addAll(data.getContent());
     }
 
     public interface VideoListener {

@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         linearLayout.addView(getButton(R.id.videos_list, "Videos List"));
         linearLayout.addView(getButton(R.id.points_views, "Points table"));
         linearLayout.addView(getButton(R.id.squads_views, "Squads"));
-        linearLayout.addView(getButton(R.id.completed_match_views, "Completed Matches"));
+        linearLayout.addView(getButton(R.id.completed_match_views, "Match Results"));
         return linearLayout;
     }
 

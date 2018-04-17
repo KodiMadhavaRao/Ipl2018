@@ -90,7 +90,7 @@ public class PointsTableActivity extends AppCompatActivity implements Callback<R
         TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(1, 1, 1, 1);
         tableRow.setLayoutParams(layoutParams);
-        String[] values = new String[]{groups.getTeam().getFullName(), Integer.toString(groups.getPlayed()), Integer.toString(groups.getWon()), Integer.toString(groups.getLost()), Integer.toString(groups.getTied()), Integer.toString(groups.getNoResult()), groups.getNetRunRate(), Integer.toString(groups.getPoints())};
+        String[] values = new String[]{groups.getTeam().getFullName(), Integer.toString(groups.getPlayed()), Integer.toString(groups.getWon()), Integer.toString(groups.getLost()), Integer.toString(groups.getTied()), Integer.toString(groups.getNoResult()), groups.getNetRunRate(), Integer.toString(groups.getPoints()),""+groups.getRecentForm().get(0).getOutcome()+" "+groups.getRecentForm().get(1).getOutcome()+" "+groups.getRecentForm().get(2).getOutcome() };
         for (int i = 0; i < values.length; i++) {
             tableRow.addView(getTextView(values[i], i == 0));
         }
@@ -101,8 +101,8 @@ public class PointsTableActivity extends AppCompatActivity implements Callback<R
         TextView textView = new TextView(this);
         if (islabel)
             textView.setTextColor(getResources().getColor(R.color.team_text));
-        textView.setPadding(20, 20, 20, 20);
         textView.setGravity(Gravity.CENTER);
+        textView.setPadding(20, 20, 20, 20);
         textView.setText(value);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(1, 1, 1, 1);
@@ -124,7 +124,7 @@ public class PointsTableActivity extends AppCompatActivity implements Callback<R
         frameLayout.setVisibility(View.GONE);
         TableRow tableRow = new TableRow(this);
         tableRow.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        String[] header = new String[]{"Team", "Pld", "Won", "Lost", "Tied", "N/R", "Net RR", "Pts"};
+        String[] header = new String[]{"Team", "Pld", "Won", "Lost", "Tied", "N/R", "Net RR", "Pts","Recent Form"};
         tableRow.setBackgroundColor(getResources().getColor(R.color.row_two));
         for (int i = 0; i < header.length; i++) {
             tableRow.addView(getTextView(header[i], false));
