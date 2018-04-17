@@ -56,7 +56,8 @@ public class VideoActivity extends AppCompatActivity implements Callback<VideoTh
     @Inject
     @VideoClient
     Map<String, String> headers;
-    int pageN0=0;
+    private int iPageNo =0;
+    private int iNext=1;
     private RecyclerView recyclerView;
     private ApiService apiService;
 
@@ -72,7 +73,7 @@ public class VideoActivity extends AppCompatActivity implements Callback<VideoTh
         ActivityComponent activityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();
         activityComponent.inject(this);
         apiService = retrofit.create(ApiService.class);
-        Call<VideoThumb> videoThumb = apiService.getVideoThumb(pageN0);
+        Call<VideoThumb> videoThumb = apiService.getVideoThumb(iPageNo);
         videoThumb.enqueue(this);
     }
 
@@ -90,8 +91,8 @@ public class VideoActivity extends AppCompatActivity implements Callback<VideoTh
             @Override
             public void onScrolled(final RecyclerView recyclerView, int dx, int dy) {
                 if (!recyclerView.canScrollVertically(1)){
-                    pageN0=pageN0+1;
-                    Call<VideoThumb> videoThumb = apiService.getVideoThumb(pageN0);
+                    iPageNo = iPageNo +iNext;
+                    Call<VideoThumb> videoThumb = apiService.getVideoThumb(iPageNo);
                     videoThumb.enqueue(new Callback<VideoThumb>() {
                         @Override
                         public void onResponse(Call<VideoThumb> call, Response<VideoThumb> response) {

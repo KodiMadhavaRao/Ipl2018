@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ipl.iml" filepath="$PROJECT_DIR$/Ipl.iml" />
+      <module fileurl="file://C:\Users\J.yugandhar\Downloads\madhav\Ipl2018\Ipl.iml" filepath="C:\Users\J.yugandhar\Downloads\madhav\Ipl2018\Ipl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ipl2018.iml" filepath="$PROJECT_DIR$/Ipl2018.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
