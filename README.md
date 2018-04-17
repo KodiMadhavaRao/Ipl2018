@@ -1,5 +1,20 @@
-# Ipl2018
-A Basic infomation about IPL 2018 application
+# IPL 2018
+
+An unofficial ipl android application provides ball by ball commenty and the pictures of crickets on pitch and the pictures and videos of the complted match.This app also gives infomation about the upcoming matches and complted matches where in complted matches the information like Images and commentry .Information about the match can be sorted based on Team and Venue.Points table and players information with images of the players based on their team .
+ 
+
+Libraries Uses
+--------------
+* [Dagger 2](https://github.com/google/dagger)
+* [Gson](https://github.com/google/gson)
+* [Retrofit](https://github.com/square/retrofit)
+* [okhttp](https://github.com/square/okhttp)
+* [ExoPlayer](https://github.com/google/ExoPlayer)
+* [Glide](https://github.com/bumptech/glide)
+
+
+Screenshots
+-----------
 <img align="left" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523603168.png">
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523445650.png">
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523603139.png">
@@ -9,4 +24,15 @@ A Basic infomation about IPL 2018 application
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523445690.png">
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523445657.png">
 <img align="left" width="200" height="400" src="https://raw.githubusercontent.com/KodiMadhavarao/Ipl2018/master/screenshots/Screenshot_1523445652.png">
+
+
+
+
+
+Future Roadmap:
+---------------
+* Material Design
+* MVP architechture
+* Notification
+* Player Carrer stats (Charts)
 
