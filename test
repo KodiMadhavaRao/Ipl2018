@@ -1,0 +1,35 @@
+import 'dart:io';
+
+void main() {
+  final directory = Directory.current;
+  final files = directory.listSync(recursive: true);
+
+  for (var file in files) {
+    if (file is File && file.path.endsWith('.dart')) {
+      String content = file.readAsStringSync();
+
+      // Replace relative imports with package imports
+      String updatedContent = content.replaceAllMapped(
+        RegExp(r"import\s+'(\.\./[^']+)'"),
+        (match) {
+          String relativePath = match.group(1)!;
+          String packageImport = convertToPackageImport(relativePath);
+          return "import '$packageImport'";
+        },
+      );
+
+      // Write changes if there was a modification
+      if (content != updatedContent) {
+        file.writeAsStringSync(updatedContent);
+        print("Updated imports in: ${file.path}");
+      }
+    }
+  }
+
+  print("✅ Import fixes completed!");
+}
+
+String convertToPackageImport(String relativePath) {
+  // Adjust this logic based on your project structure
+  return 'package:mobile/inventory/${relativePath.replaceAll('../', '')}';
+}
