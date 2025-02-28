@@ -1,1 +1,1 @@
-RegExp importRegex = RegExp(r"^(?:import|export)\s+['\"]([^'\"]+)['\"];", multiLine: true);
+sed -i -E "s|^(import|export)[[:space:]]+['\"](\.\.?/)+lib/([^'\"]+)['\"];|\1 'package:$PACKAGE_NAME/\3';|g" "$file"
