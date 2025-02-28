@@ -8,9 +8,9 @@ LIB_DIR="lib"
 
 # Find all Dart files in the lib directory
 find "$LIB_DIR" -type f -name "*.dart" | while read -r file; do
-    # Use perl to detect and replace relative imports correctly
-    perl -pi -e "s@^(import|export)\s+['\"](\.\.?/[^'\"]+)['\"];@\1 'package:$PACKAGE_NAME/\2';@g" "$file"
-
+    perl -pi -e "
+        s@^(import|export)\\s+['\"](\\.\\.?/[^'\"]+)['\"];@\1 'package:$PACKAGE_NAME/\$2';@g
+    " "$file"
     echo "Updated: $file"
 done
 
