@@ -1,35 +1,62 @@
 import 'dart:io';
 
 void main() {
-  final directory = Directory.current;
-  final files = directory.listSync(recursive: true);
+  final Directory projectDir = Directory.current;
+  final Directory libDir = Directory('${projectDir.path}/lib');
 
-  for (var file in files) {
-    if (file is File && file.path.endsWith('.dart')) {
-      String content = file.readAsStringSync();
+  if (!libDir.existsSync()) {
+    print('No lib directory found. Make sure you run this script from the project root.');
+    return;
+  }
 
-      // Replace relative imports with package imports
-      String updatedContent = content.replaceAllMapped(
-        RegExp(r"import\s+'(\.\./[^']+)'"),
-        (match) {
-          String relativePath = match.group(1)!;
-          String packageImport = convertToPackageImport(relativePath);
-          return "import '$packageImport'";
-        },
-      );
+  final List<File> dartFiles = libDir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .where((file) => file.path.endsWith('.dart'))
+      .toList();
 
-      // Write changes if there was a modification
-      if (content != updatedContent) {
-        file.writeAsStringSync(updatedContent);
-        print("Updated imports in: ${file.path}");
+  for (final File file in dartFiles) {
+    _convertRelativeImports(file, libDir);
+  }
+
+  print('Conversion completed.');
+}
+
+void _convertRelativeImports(File file, Directory libDir) {
+  final List<String> lines = file.readAsLinesSync();
+  final RegExp importRegex = RegExp(r"^(import|export) ['"](\.\.?/[^'"]+)['"];");
+  final String libPath = libDir.path;
+
+  bool updated = false;
+  for (int i = 0; i < lines.length; i++) {
+    final match = importRegex.firstMatch(lines[i]);
+    if (match != null) {
+      final String keyword = match.group(1)!;
+      final String relativePath = match.group(2)!;
+      final String absolutePath = _resolveAbsolutePath(file, relativePath, libPath);
+
+      if (absolutePath.isNotEmpty) {
+        lines[i] = "$keyword '$absolutePath';";
+        updated = true;
       }
     }
   }
 
-  print("✅ Import fixes completed!");
+  if (updated) {
+    file.writeAsStringSync(lines.join('\n'));
+    print('Updated: ${file.path}');
+  }
 }
 
-String convertToPackageImport(String relativePath) {
-  // Adjust this logic based on your project structure
-  return 'package:mobile/inventory/${relativePath.replaceAll('../', '')}';
+String _resolveAbsolutePath(File file, String relativePath, String libPath) {
+  final File resolvedFile = File('${file.parent.path}/$relativePath');
+  final String normalizedPath = resolvedFile.absolute.path;
+
+  if (!resolvedFile.existsSync()) {
+    print('Warning: File not found for import: $relativePath in ${file.path}');
+    return '';
+  }
+
+  final String relativeToLib = normalizedPath.replaceFirst(libPath, '').replaceAll('\\', '/');
+  return 'package:${Directory.current.uri.pathSegments.last}$relativeToLib';
 }
