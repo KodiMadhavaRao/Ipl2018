@@ -2,7 +2,7 @@
 
 PROJECT_DIR=$(pwd)
 LIB_DIR="$PROJECT_DIR/lib"
-PACKAGE_NAME=$(basename "$PROJECT_DIR")
+PACKAGE_NAME="pro"
 
 if [ ! -d "$LIB_DIR" ]; then
   echo "No lib directory found. Make sure you run this script from the project root."
@@ -10,7 +10,7 @@ if [ ! -d "$LIB_DIR" ]; then
 fi
 
 find "$LIB_DIR" -name "*.dart" | while read -r file; do
-  sed -i -E "s@^(import|export) ['\"](\.\.?/[^'\"]+)['\"]\s*;@\1 'package:$PACKAGE_NAME\2';@g" "$file"
+  sed -i -E "s@^(import|export)\s+[\"'](\.\.?/)+lib/([^\"']+)[\"']\s*;@\1 'package:$PACKAGE_NAME/\3';@g" "$file"
   echo "Updated: $file"
 done
 
