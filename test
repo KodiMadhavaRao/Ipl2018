@@ -6,18 +6,12 @@ PACKAGE_NAME=$(grep -m1 '^name:' pubspec.yaml | awk '{print $2}')
 # Set the lib directory path
 LIB_DIR="lib"
 
-# Detect macOS or Linux for sed compatibility
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    SED_CMD="sed -i '' -E"
-else
-    SED_CMD="sed -i -E"
-fi
-
 # Find all Dart files in the lib directory
 find "$LIB_DIR" -type f -name "*.dart" | while read -r file; do
-    echo "Updating: $file"
+    # Use perl to detect and replace relative imports correctly
+    perl -pi -e "s@^(import|export)\s+['\"](\.\.?/[^'\"]+)['\"];@\1 'package:$PACKAGE_NAME/\2';@g" "$file"
 
-    $SED_CMD "s@^(import|export) ['\"](\.\.?/[^'\"]+)['\"]@\\1 'package:$PACKAGE_NAME/\\2'@g" "$file"
+    echo "Updated: $file"
 done
 
 echo "Conversion completed."
