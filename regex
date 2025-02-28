@@ -1,1 +1,7 @@
-sed -i '' -E "s/^(import\|export)[[:space:]]+['\"](\.\.?\/)+lib\/([^'\"]+)['\"];/\1 'package:$PACKAGE_NAME\/\3';/g" "$file"
+awk -v package="$PACKAGE_NAME" '
+{
+    if ($0 ~ /^(import|export)[[:space:]]+["'\''](\.\.?\/)+lib\/([^"'\'']+)["'\''];/) {
+        gsub(/^(import|export)[[:space:]]+["'\''](\.\.?\/)+lib\//, "package:" package "/");
+    }
+    print;
+}' "$file" > temp && mv temp "$file"
