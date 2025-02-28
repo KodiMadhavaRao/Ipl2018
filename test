@@ -1,17 +1,32 @@
 #!/bin/bash
 
-PROJECT_DIR=$(pwd)
-LIB_DIR="$PROJECT_DIR/lib"
-PACKAGE_NAME="pro"
+# Get the package name from pubspec.yaml
+PACKAGE_NAME=$(grep 'name:' pubspec.yaml | awk '{print $2}')
 
-if [ ! -d "$LIB_DIR" ]; then
-  echo "No lib directory found. Make sure you run this script from the project root."
-  exit 1
-fi
+# Set the lib directory path
+LIB_DIR="lib"
 
-find "$LIB_DIR" -name "*.dart" | while read -r file; do
-  sed -i -E "s@^(import|export)\s+[\"'](\.\.?/)+lib/([^\"']+)[\"']\s*;@\1 'package:$PACKAGE_NAME/\3';@g" "$file"
-  echo "Updated: $file"
+# Find all Dart files in the lib directory
+find $LIB_DIR -type f -name "*.dart" | while read -r file; do
+    # Read file content line by line
+    while IFS= read -r line; do
+        # Check if the line contains a relative import
+        if [[ $line =~ ^(import|export)[[:space:]]+['\"](\.\.?/[^'\"]+)['\"] ]]; then
+            # Extract relative path
+            RELATIVE_PATH=${BASH_REMATCH[2]}
+
+            # Convert relative path to absolute package path
+            ABSOLUTE_PATH=$(realpath --relative-to="$LIB_DIR" "$(dirname "$file")/$RELATIVE_PATH")
+            
+            # Ensure it's inside the lib folder
+            if [[ $ABSOLUTE_PATH == lib/* ]]; then
+                PACKAGE_IMPORT="package:$PACKAGE_NAME/${ABSOLUTE_PATH#lib/}"
+                echo "Updating: $file"
+                # Replace the relative import with package import
+                sed -i '' -E "s|$RELATIVE_PATH|$PACKAGE_IMPORT|g" "$file"
+            fi
+        fi
+    done < "$file"
 done
 
 echo "Conversion completed."
