@@ -1,62 +1,17 @@
-import 'dart:io';
+#!/bin/bash
 
-void main() {
-  final Directory projectDir = Directory.current;
-  final Directory libDir = Directory('${projectDir.path}/lib');
+PROJECT_DIR=$(pwd)
+LIB_DIR="$PROJECT_DIR/lib"
+PACKAGE_NAME=$(basename "$PROJECT_DIR")
 
-  if (!libDir.existsSync()) {
-    print('No lib directory found. Make sure you run this script from the project root.');
-    return;
-  }
+if [ ! -d "$LIB_DIR" ]; then
+  echo "No lib directory found. Make sure you run this script from the project root."
+  exit 1
+fi
 
-  final List<File> dartFiles = libDir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((file) => file.path.endsWith('.dart'))
-      .toList();
+find "$LIB_DIR" -name "*.dart" | while read -r file; do
+  sed -i -E "s@^(import|export) ['\"](\.\.?/[^'\"]+)['\"]\s*;@\1 'package:$PACKAGE_NAME\2';@g" "$file"
+  echo "Updated: $file"
+done
 
-  for (final File file in dartFiles) {
-    _convertRelativeImports(file, libDir);
-  }
-
-  print('Conversion completed.');
-}
-
-void _convertRelativeImports(File file, Directory libDir) {
-  final List<String> lines = file.readAsLinesSync();
-  final RegExp importRegex = RegExp(r"^(import|export) ['"](\.\.?/[^'"]+)['"];");
-  final String libPath = libDir.path;
-
-  bool updated = false;
-  for (int i = 0; i < lines.length; i++) {
-    final match = importRegex.firstMatch(lines[i]);
-    if (match != null) {
-      final String keyword = match.group(1)!;
-      final String relativePath = match.group(2)!;
-      final String absolutePath = _resolveAbsolutePath(file, relativePath, libPath);
-
-      if (absolutePath.isNotEmpty) {
-        lines[i] = "$keyword '$absolutePath';";
-        updated = true;
-      }
-    }
-  }
-
-  if (updated) {
-    file.writeAsStringSync(lines.join('\n'));
-    print('Updated: ${file.path}');
-  }
-}
-
-String _resolveAbsolutePath(File file, String relativePath, String libPath) {
-  final File resolvedFile = File('${file.parent.path}/$relativePath');
-  final String normalizedPath = resolvedFile.absolute.path;
-
-  if (!resolvedFile.existsSync()) {
-    print('Warning: File not found for import: $relativePath in ${file.path}');
-    return '';
-  }
-
-  final String relativeToLib = normalizedPath.replaceFirst(libPath, '').replaceAll('\\', '/');
-  return 'package:${Directory.current.uri.pathSegments.last}$relativeToLib';
-}
+echo "Conversion completed."
