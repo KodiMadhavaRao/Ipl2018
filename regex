@@ -1,1 +1,1 @@
-final RegExp importRegex = RegExp(r"^(?:import|export)\s+['\"](\.\.?/[^'\"]+)['\"];");
+RegExp importRegex = RegExp(r"^(?:import|export)\s+['\"]([^'\"]+)['\"];", multiLine: true);
