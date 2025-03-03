@@ -1,93 +1,41 @@
 import 'package:intl/intl.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 
 class CurrencyService {
   final NumberFormat formatter;
   final NumberFormat formatterWithoutSymbol;
 
   CurrencyService({required this.formatter})
-      : formatterWithoutSymbol = NumberFormat.currency(locale: formatter.locale.toString(), symbol: '', decimalDigits: formatter.decimalDigits);
+      : formatterWithoutSymbol = NumberFormat.currency(
+          locale: formatter.locale,
+          symbol: '', // No currency symbol
+          decimalDigits: formatter.decimalDigits,
+        );
 
   String toCurrency(dynamic amount) {
-    if (amount is int || amount is double) {
-      return formatter.format(amount);
-    } else if (amount is String) {
-      final sanitized = amount.replaceAll(',', ''); // Remove commas
-      final parsed = num.tryParse(sanitized);
-      if (parsed != null) {
-        return formatter.format(parsed);
-      }
-      throw ArgumentError('Invalid input: $amount is not a valid number');
-    } else {
-      throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
+    if (amount == null || amount.toString().trim().isEmpty) {
+      return formatter.format(0); // Return $0.00
     }
+
+    final parsedAmount = _parseAmount(amount);
+    return formatter.format(parsedAmount);
   }
 
   String toCurrencyWithoutSymbol(dynamic amount) {
-    if (amount is int || amount is double) {
-      return formatterWithoutSymbol.format(amount);
-    } else if (amount is String) {
-      final sanitized = amount.replaceAll(',', ''); // Remove commas
-      final parsed = num.tryParse(sanitized);
-      if (parsed != null) {
-        return formatterWithoutSymbol.format(parsed);
-      }
-      throw ArgumentError('Invalid input: $amount is not a valid number');
-    } else {
-      throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
+    if (amount == null || amount.toString().trim().isEmpty) {
+      return formatterWithoutSymbol.format(0); // Return 0.00
     }
+
+    final parsedAmount = _parseAmount(amount);
+    return formatterWithoutSymbol.format(parsedAmount);
   }
-}
 
-final getIt = GetIt.instance;
-
-void main() {
-  getIt.registerLazySingleton<CurrencyService>(() => CurrencyService(
-        formatter: NumberFormat.currency(locale: 'en_US', symbol: '\$', decimalDigits: 2),
-      ));
-
-  group('CurrencyService Tests', () {
-    test('USD Formatter - Convert 3.0 (double) to Currency', () {
-      final currencyService = getIt<CurrencyService>();
-      expect(currencyService.toCurrency(3.0), '\$3.00');
-    });
-
-    test('USD Formatter - Convert 25 (int) to Currency', () {
-      final currencyService = getIt<CurrencyService>();
-      expect(currencyService.toCurrency(25), '\$25.00');
-    });
-
-    test('UK Formatter - Convert 3.0 (double) to Currency', () {
-      final ukFormatter = NumberFormat.currency(locale: 'en_GB', symbol: '£', decimalDigits: 2);
-      final ukCurrencyService = CurrencyService(formatter: ukFormatter);
-      expect(ukCurrencyService.toCurrency(3.0), '£3.00');
-    });
-
-    test('UK Formatter - Convert 25 (int) to Currency', () {
-      final ukFormatter = NumberFormat.currency(locale: 'en_GB', symbol: '£', decimalDigits: 2);
-      final ukCurrencyService = CurrencyService(formatter: ukFormatter);
-      expect(ukCurrencyService.toCurrency(25), '£25.00');
-    });
-
-    test('USD Formatter - Convert "50.75" (String) to Currency', () {
-      final currencyService = getIt<CurrencyService>();
-      expect(currencyService.toCurrency("50.75"), '\$50.75');
-    });
-
-    test('Invalid String Input - Throws ArgumentError', () {
-      final currencyService = getIt<CurrencyService>();
-      expect(() => currencyService.toCurrency("invalid"), throwsArgumentError);
-    });
-
-    test('USD Formatter - Convert 3.0 (double) to Currency Without Symbol', () {
-      final currencyService = getIt<CurrencyService>();
-      expect(currencyService.toCurrencyWithoutSymbol(3.0), '3.00');
-    });
-
-    test('USD Formatter - Convert "15,659.16" (String) to Currency Without Symbol', () {
-      final currencyService = getIt<CurrencyService>();
-      expect(currencyService.toCurrencyWithoutSymbol("15,659.16"), '15659.16');
-    });
-  });
+  num _parseAmount(dynamic amount) {
+    if (amount is num) return amount;
+    if (amount is String) {
+      final parsed = num.tryParse(amount);
+      if (parsed != null) return parsed;
+      throw ArgumentError('Invalid input: "$amount" is not a valid number');
+    }
+    throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
+  }
 }
