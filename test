@@ -1,68 +1,15 @@
-import 'package:intl/intl.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-class CurrencyService {
-  final NumberFormat formatter;
-
-  CurrencyService({required this.formatter});
-
-  String toCurrency(dynamic amount) {
-    if (amount is int || amount is double) {
-      return formatter.format(amount);
-    } else if (amount is String) {
-      final parsed = num.tryParse(amount);
-      if (parsed != null) {
-        return formatter.format(parsed);
-      }
-      throw ArgumentError('Invalid input: $amount is not a valid number');
-    } else {
-      throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
+String toCurrency(dynamic amount) {
+  if (amount is int || amount is double) {
+    return formatter.format(amount);
+  } else if (amount is String) {
+    final sanitized = amount.replaceAll(',', ''); // Remove commas
+    final parsed = num.tryParse(sanitized);
+    if (parsed != null) {
+      return formatter.format(parsed);
     }
+    throw ArgumentError('Invalid input: $amount is not a valid number');
+  } else {
+    throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
   }
-}
-
-void main() {
-  group('CurrencyService Tests', () {
-    test('USD Formatter - Convert 3.0 (double) to Currency', () {
-      final usdFormatter = NumberFormat.currency(locale: 'en_US', symbol: '\$', decimalDigits: 2);
-      final currencyService = CurrencyService(formatter: usdFormatter);
-
-      expect(currencyService.toCurrency(3.0), '\$3.00');
-    });
-
-    test('USD Formatter - Convert 25 (int) to Currency', () {
-      final usdFormatter = NumberFormat.currency(locale: 'en_US', symbol: '\$', decimalDigits: 2);
-      final currencyService = CurrencyService(formatter: usdFormatter);
-
-      expect(currencyService.toCurrency(25), '\$25.00');
-    });
-
-    test('UK Formatter - Convert 3.0 (double) to Currency', () {
-      final ukFormatter = NumberFormat.currency(locale: 'en_GB', symbol: '£', decimalDigits: 2);
-      final currencyService = CurrencyService(formatter: ukFormatter);
-
-      expect(currencyService.toCurrency(3.0), '£3.00');
-    });
-
-    test('UK Formatter - Convert 25 (int) to Currency', () {
-      final ukFormatter = NumberFormat.currency(locale: 'en_GB', symbol: '£', decimalDigits: 2);
-      final currencyService = CurrencyService(formatter: ukFormatter);
-
-      expect(currencyService.toCurrency(25), '£25.00');
-    });
-
-    test('USD Formatter - Convert "50.75" (String) to Currency', () {
-      final usdFormatter = NumberFormat.currency(locale: 'en_US', symbol: '\$', decimalDigits: 2);
-      final currencyService = CurrencyService(formatter: usdFormatter);
-
-      expect(currencyService.toCurrency("50.75"), '\$50.75');
-    });
-
-    test('Invalid String Input - Throws ArgumentError', () {
-      final usdFormatter = NumberFormat.currency(locale: 'en_US', symbol: '\$', decimalDigits: 2);
-      final currencyService = CurrencyService(formatter: usdFormatter);
-
-      expect(() => currencyService.toCurrency("invalid"), throwsArgumentError);
-    });
-  });
 }
