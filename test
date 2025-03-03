@@ -7,24 +7,22 @@ class CurrencyService {
   CurrencyService({required this.formatter})
       : formatterWithoutSymbol = NumberFormat.currency(
           locale: formatter.locale,
-          symbol: '', // No currency symbol
+          symbol: '',
           decimalDigits: formatter.decimalDigits,
         );
 
   String toCurrency(dynamic amount) {
     if (amount == null || amount.toString().trim().isEmpty) {
-      return formatter.format(0); // Return $0.00
+      return formatter.format(0);
     }
-
     final parsedAmount = _parseAmount(amount);
     return formatter.format(parsedAmount);
   }
 
   String toCurrencyWithoutSymbol(dynamic amount) {
     if (amount == null || amount.toString().trim().isEmpty) {
-      return formatterWithoutSymbol.format(0); // Return 0.00
+      return formatterWithoutSymbol.format(0);
     }
-
     final parsedAmount = _parseAmount(amount);
     return formatterWithoutSymbol.format(parsedAmount);
   }
@@ -32,9 +30,11 @@ class CurrencyService {
   num _parseAmount(dynamic amount) {
     if (amount is num) return amount;
     if (amount is String) {
-      final parsed = num.tryParse(amount);
-      if (parsed != null) return parsed;
-      throw ArgumentError('Invalid input: "$amount" is not a valid number');
+      try {
+        return formatter.parse(amount); // ✅ Handles commas (e.g., "15,659.16")
+      } catch (e) {
+        throw ArgumentError('Invalid input: "$amount" is not a valid number');
+      }
     }
     throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
   }
