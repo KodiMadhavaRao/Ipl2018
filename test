@@ -1,41 +1,55 @@
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-class CurrencyService {
-  final NumberFormat formatter;
-  final NumberFormat formatterWithoutSymbol;
+class CurrencyHelper {
+  static final NumberFormat _formatter = NumberFormat("#,##0.00", "en_US");
 
-  CurrencyService({required this.formatter})
-      : formatterWithoutSymbol = NumberFormat.currency(
-          locale: formatter.locale,
-          symbol: '',
-          decimalDigits: formatter.decimalDigits,
-        );
-
-  String toCurrency(dynamic amount) {
-    if (amount == null || amount.toString().trim().isEmpty) {
-      return formatter.format(0);
-    }
-    final parsedAmount = _parseAmount(amount);
-    return formatter.format(parsedAmount);
+  /// Convert number to formatted currency string (for UI display)
+  static String formatForUI(double value) {
+    return _formatter.format(value);
   }
 
-  String toCurrencyWithoutSymbol(dynamic amount) {
-    if (amount == null || amount.toString().trim().isEmpty) {
-      return formatterWithoutSymbol.format(0);
-    }
-    final parsedAmount = _parseAmount(amount);
-    return formatterWithoutSymbol.format(parsedAmount);
-  }
-
-  num _parseAmount(dynamic amount) {
-    if (amount is num) return amount;
-    if (amount is String) {
-      try {
-        return formatter.parse(amount); // ✅ Handles commas (e.g., "15,659.16")
-      } catch (e) {
-        throw ArgumentError('Invalid input: "$amount" is not a valid number');
-      }
-    }
-    throw ArgumentError('Invalid type: ${amount.runtimeType}. Supported types: int, double, String');
+  /// Convert formatted string back to double (for storage/calculations)
+  static double parseToRawValue(String formattedValue) {
+    return double.tryParse(formattedValue.replaceAll(',', '')) ?? 0.0;
   }
 }
+
+/// Custom TextInputFormatter to format currency input
+class UsCurrencyInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) return newValue;
+
+    // Remove all non-numeric characters except decimal point
+    String cleanedText = newValue.text.replaceAll(RegExp(r'[^0-9.]'), '');
+
+    // Convert to a number
+    double? value = double.tryParse(cleanedText);
+    if (value == null) return oldValue;
+
+    // Format for display
+    String formattedText = CurrencyHelper.formatForUI(value);
+
+    return TextEditingValue(
+      text: formattedText,
+      selection: TextSelection.collapsed(offset: formattedText.length),
+    );
+  }
+}
+
+TextFormField(
+  keyboardType: TextInputType.numberWithOptions(decimal: true),
+  inputFormatters: [UsCurrencyInputFormatter()],
+  decoration: InputDecoration(
+    labelText: "Enter Amount",
+    prefixText: "\$", // Optional
+  ),
+  onChanged: (value) {
+    double rawValue = CurrencyHelper.parseToRawValue(value);
+    print("Raw Value: $rawValue"); // This will be 1333.33, while UI shows 1,333.33
+  },
+)
