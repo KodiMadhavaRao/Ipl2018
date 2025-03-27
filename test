@@ -1,0 +1,91 @@
+class Token {
+  String? token;
+  List<String>? roles;
+  DateTime? acquisitionTime;
+  String? cookie;
+
+  Token({
+    this.token,
+    this.roles,
+    this.acquisitionTime,
+    this.cookie,
+  });
+
+  void clear() {
+    token = null;
+    roles?.clear();
+    cookie = null;
+  }
+
+  /// Factory constructor to create a Token instance based on attributes
+  factory Token.createToken({
+    String? token,
+    List<String>? roles,
+    DateTime? acquisitionTime,
+    String? cookie,
+    EmployeeResponse? employee,
+    RegisterResponse? posDevice,
+    PrinterTypeResponse? kdsDevice,
+  }) {
+    if (posDevice != null) {
+      return PosToken(
+        employee: employee,
+        posDevice: posDevice,
+        token: token,
+        roles: roles,
+        acquisitionTime: acquisitionTime,
+        cookie: cookie,
+      );
+    } else if (kdsDevice != null) {
+      return KdsToken(
+        kdsDevice: kdsDevice,
+        token: token,
+        roles: roles,
+        acquisitionTime: acquisitionTime,
+        cookie: cookie,
+      );
+    }
+    return Token(
+      token: token,
+      roles: roles,
+      acquisitionTime: acquisitionTime,
+      cookie: cookie,
+    );
+  }
+}
+
+class PosToken extends Token {
+  EmployeeResponse? employee;
+  RegisterResponse? posDevice;
+
+  PosToken({
+    this.employee,
+    this.posDevice,
+    String? token,
+    List<String>? roles,
+    DateTime? acquisitionTime,
+    String? cookie,
+  }) : super(
+          token: token,
+          roles: roles,
+          acquisitionTime: acquisitionTime,
+          cookie: cookie,
+        );
+}
+
+class KdsToken extends Token {
+  PrinterTypeResponse? kdsDevice;
+
+  KdsToken({
+    this.kdsDevice,
+    String? token,
+    List<String>? roles,
+    DateTime? acquisitionTime,
+    String? cookie,
+  }) : super(
+          token: token,
+          roles: roles,
+          acquisitionTime: acquisitionTime,
+          cookie: cookie,
+        );
+}
