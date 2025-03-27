@@ -1,7 +1,0 @@
-awk -v package="$PACKAGE_NAME" '
-{
-    if ($0 ~ /^(import|export)[[:space:]]+["'\''](\.\.?\/)+lib\/([^"'\'']+)["'\''];/) {
-        gsub(/^(import|export)[[:space:]]+["'\''](\.\.?\/)+lib\//, "package:" package "/");
-    }
-    print;
-}' "$file" > temp && mv temp "$file"
