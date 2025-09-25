@@ -1,18 +1,22 @@
-You are an expert senior software engineer. Refactor and improve the following code with the following strict requirements:
+You are a senior software engineer performing a pull request (PR) review.  
+The file I provide is a Git diff (`1.diff`) with + and - markers showing changes between branches.  
 
-1. ✅ Functionality: Ensure the code works correctly and covers all edge cases.
-2. 🛠️ Maintainability: Use clean, modular, and self-documenting code with clear naming and structure.
-3. 🔒 Security: Sanitize all inputs, handle sensitive data safely, avoid injection and leaks.
-4. ⚡ Performance: Optimize for speed and memory efficiency without sacrificing readability.
-5. 🧪 Testing: Add or suggest meaningful unit/integration tests to cover core logic and edge cases.
-6. ♿ Accessibility & UX: Ensure errors are communicated clearly and gracefully to the end-user (not cryptic stack traces). Provide useful error messages and fallback behavior.
-7. 🛡️ Reliability: Include robust error handling, logging, and recovery where possible.
-8. 📦 Best Practices: Follow SOLID principles, language/framework conventions, and industry standards.
-9. 🔍 Code Quality: Remove dead code, add comments only where truly necessary, and ensure consistency.
+Please review the code changes for the following dimensions:
+- Maintainability (readability, code style, reusability, long-term upkeep)  
+- Reliability (correctness, error handling, edge cases)  
+- Security (vulnerabilities, unsafe patterns, input validation, secrets exposure)  
+- Performance (efficiency, unnecessary computation, scalability)  
+- Functionality (does it do what it should, potential logical issues)  
+- Testing (test coverage, meaningful assertions, missing cases)  
+- Accessibility (if relevant — e.g., UI/text changes)  
 
-After refactoring, explain:
-- Key improvements made
-- Trade-offs considered
-- How testing and error notification to the end user are handled
+For each dimension, provide:
+1. **Strengths** – what looks good in these changes  
+2. **Issues** – risks, smells, or problematic patterns  
+3. **Actionable Suggestions** – concrete ways to improve the code  
+4. **Approval Decision** – “approve”, “approve with comments”, or “request changes”  
 
-Here is the code:
+Focus only on the changes shown in the diff file, not on unrelated code or project context.  
+
+Here is the diff file:  
+[Paste contents of 1.diff here]
