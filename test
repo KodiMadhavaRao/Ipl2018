@@ -1,22 +1,87 @@
-You are a senior software engineer performing a pull request (PR) review.  
-The file I provide is a Git diff (`1.diff`) with + and - markers showing changes between branches.  
+Here’s a production-ready Copilot prompt you can use to automatically detect and compare functionality related to roles between your NativeScript (Zuza) and Flutter (App Suite) codebases, and identify where Flutter is missing role-based logic:
 
-Please review the code changes for the following dimensions:
-- Maintainability (readability, code style, reusability, long-term upkeep)  
-- Reliability (correctness, error handling, edge cases)  
-- Security (vulnerabilities, unsafe patterns, input validation, secrets exposure)  
-- Performance (efficiency, unnecessary computation, scalability)  
-- Functionality (does it do what it should, potential logical issues)  
-- Testing (test coverage, meaningful assertions, missing cases)  
-- Accessibility (if relevant — e.g., UI/text changes)  
 
-For each dimension, provide:
-1. **Strengths** – what looks good in these changes  
-2. **Issues** – risks, smells, or problematic patterns  
-3. **Actionable Suggestions** – concrete ways to improve the code  
-4. **Approval Decision** – “approve”, “approve with comments”, or “request changes”  
+---
 
-Focus only on the changes shown in the diff file, not on unrelated code or project context.  
+✅ Copilot Prompt for Code Comparison and Role-Based Functionality Mapping
 
-Here is the diff file:  
-[Paste contents of 1.diff here]
+> Prompt:
+
+You are an expert full-stack engineer with deep knowledge of Flutter, TypeScript, and NativeScript, specializing in code migration and feature parity analysis.
+
+I have two repositories:
+
+zuza_native_script → built with NativeScript (TypeScript)
+
+app_suite → built with Flutter (Dart)
+
+
+The goal is to ensure both projects have identical role-based functionality (user permissions, access control, role checks, UI conditions, etc.).
+
+Please do the following:
+
+1. Scan both repositories for any logic, components, or services that handle roles, permissions, or access control.
+
+Look for keywords like: role, roles, permission, userType, auth, authorization, access, isAdmin, isManager, canEdit, etc.
+
+
+
+2. Map equivalent functionality between the two projects:
+
+For each role-related function, class, or file in zuza_native_script, identify if there’s a corresponding implementation in app_suite.
+
+If the Flutter side is missing a corresponding implementation, list the exact files and line numbers where similar logic should be added.
+
+
+
+3. Generate a detailed report showing:
+
+✅ Matched features (NativeScript ↔ Flutter)
+
+⚠️ Missing or incomplete features in Flutter
+
+💡 Suggested Flutter file paths and snippets where role-based logic should be inserted, based on the architecture of app_suite.
+
+
+
+4. When comparing code:
+
+Treat functional equivalence (e.g., checkUserRole() in TS ≈ isUserRole() in Dart) as a match even if variable names differ.
+
+Consider both UI-level (conditional widgets) and logic-level (API/service calls) role handling.
+
+
+
+5. Output format (strictly use this structure):
+
+## Role Functionality Mapping Report
+
+### ✅ Matched Role Logic
+| NativeScript File | Flutter File | Function/Class | Notes |
+|-------------------|--------------|----------------|-------|
+| ... | ... | ... | ... |
+
+### ⚠️ Missing or Incomplete Logic in Flutter
+| NativeScript File | Expected Flutter Location | Description | Suggested Flutter Code Stub |
+|-------------------|----------------------------|--------------|-----------------------------|
+| ... | ... | ... | ```dart ... ``` |
+
+### 💡 Summary Recommendations
+- ...
+- ...
+
+
+6. Your comparison should be precise, actionable, and production-ready — not just summaries.
+
+
+7. Assume both repos are already attached and available for reading.
+
+
+
+
+
+
+---
+
+Would you like me to optimize this prompt for VS Code Copilot Chat, Copilot CLI, or GitHub Copilot Workspace (they each interpret prompts slightly differently)?
+I can tailor it to the specific environment for best results.
