@@ -1,0 +1,25 @@
+double? getLocation(DateTime date) {
+  final start = calendarData.settings.timings.startTime; // ex: 9
+  final end = calendarData.settings.timings.endTime;     // ex: 17
+  final hour = date.hour + date.minute / 60.0;
+
+  // Case 1: Normal hours (9 → 17)
+  if (start < end) {
+    if (hour < start || hour > end) {
+      return null; // DON'T SHOW outside business hours
+    }
+    return (hour - start) * timeHeight;
+  }
+
+  // Case 2: Overnight business hours (e.g., 20 → 6 next day)
+  // Only needed if business truly supports overnight shift
+  final total = (24 - start) + end;
+
+  if (hour >= start) {
+    return (hour - start) * timeHeight;
+  } else if (hour <= end) {
+    return ((24 - start) + hour) * timeHeight;
+  }
+
+  return null; // not in shift
+}
